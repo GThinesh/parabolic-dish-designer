@@ -29,12 +29,14 @@ function init() {
     scene.background = new THREE.Color(0x0a0a1a);
 
     // Camera
-    camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const containerWidth = container.clientWidth || window.innerWidth;
+    const containerHeight = container.clientHeight || window.innerHeight;
+    camera = new THREE.PerspectiveCamera(60, containerWidth / containerHeight, 0.1, 1000);
     camera.position.set(6, 4, 6);
 
     // Renderer
     renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(containerWidth, containerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     container.appendChild(renderer.domElement);
 
@@ -67,6 +69,9 @@ function init() {
 
     // Initial generation
     generateDish();
+
+    // Fit camera to dish on initial load
+    fitCameraToDish();
 
     // Event listeners
     focalLengthInput.addEventListener('input', onParameterChange);
@@ -237,9 +242,42 @@ function generateDish() {
 }
 
 function onWindowResize() {
-    camera.aspect = window.innerWidth / window.innerHeight;
+    const containerWidth = container.clientWidth || window.innerWidth;
+    const containerHeight = container.clientHeight || window.innerHeight;
+    camera.aspect = containerWidth / containerHeight;
     camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(containerWidth, containerHeight);
+    fitCameraToDish();
+}
+
+function fitCameraToDish() {
+    const diameter = parseFloat(diameterInput.value);
+    const focalLength = parseFloat(focalLengthInput.value);
+    const radius = diameter / 2;
+    const dishDepth = (radius * radius) / (4 * focalLength);
+    
+    // Calculate the bounding size (use the larger of diameter or height)
+    const maxDimension = Math.max(diameter, dishDepth + focalLength);
+    
+    // Calculate the distance needed to fit the dish in view
+    const fov = camera.fov * (Math.PI / 180);
+    const distance = (maxDimension / 2) / Math.tan(fov / 2);
+    
+    // Add some padding
+    const paddedDistance = distance * 1.5;
+    
+    // Position camera at an angle
+    const angle = Math.PI / 4; // 45 degrees
+    camera.position.set(
+        paddedDistance * Math.cos(angle),
+        paddedDistance * 0.5,
+        paddedDistance * Math.sin(angle)
+    );
+    
+    // Look at center of the dish
+    const centerY = dishDepth / 2;
+    controls.target.set(0, centerY, 0);
+    controls.update();
 }
 
 function animate() {
