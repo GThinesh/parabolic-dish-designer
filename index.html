@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parabolic Dish Antenna Designer</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="canvas-container"></div>
+
+    <!-- Control Panel -->
+    <div class="control-panel">
+        <h1>🛰️ Parabolic Dish Designer</h1>
+
+        <div class="input-group">
+            <label for="focalLength">Focal Length (m)</label>
+            <input type="range" id="focalLength" min="0.5" max="5" step="0.1" value="2">
+            <span class="value-display" id="focalLengthValue">2.0 m</span>
+        </div>
+
+        <div class="input-group">
+            <label for="diameter">Diameter (m)</label>
+            <input type="range" id="diameter" min="1" max="10" step="0.5" value="4">
+            <span class="value-display" id="diameterValue">4.0 m</span>
+        </div>
+
+        <div class="input-group">
+            <label for="circles">Number of Circles</label>
+            <input type="range" id="circles" min="2" max="15" step="1" value="5">
+            <span class="value-display" id="circlesValue">5</span>
+        </div>
+
+        <div class="input-group">
+            <label for="ribs">Number of Ribs</label>
+            <input type="range" id="ribs" min="3" max="24" step="1" value="8">
+            <span class="value-display" id="ribsValue">8</span>
+        </div>
+
+        <div class="divider"></div>
+
+        <h2>📐 Measurements</h2>
+        <div class="measurements">
+            <div class="measurement-item">
+                <span class="label">Rib Arc Length:</span>
+                <span class="value" id="ribLength">--</span>
+            </div>
+            <div class="measurement-item">
+                <span class="label">Dish Depth:</span>
+                <span class="value" id="dishDepth">--</span>
+            </div>
+            <div class="measurement-item">
+                <span class="label">F/D Ratio:</span>
+                <span class="value" id="fdRatio">--</span>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <h2>📏 Circle Circumferences</h2>
+        <div class="circle-list" id="circleList">
+            <!-- Dynamically populated -->
+        </div>
+
+        <div class="divider"></div>
+
+        <h2>📐 Rib Segment Lengths</h2>
+        <div class="circle-list" id="ribSegmentList">
+            <!-- Dynamically populated -->
+        </div>
+
+        <p class="hint">🖱️ Drag to rotate • Scroll to zoom</p>
+    </div>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+    <script type="module" src="main.js"></script>
+</body>
+
+</html>

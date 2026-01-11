@@ -1,0 +1,217 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3a 50%, #0a0a2a 100%);
+    min-height: 100vh;
+    overflow: hidden;
+    color: #fff;
+}
+
+#canvas-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.control-panel {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 320px;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+    background: rgba(20, 20, 40, 0.85);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 24px;
+    z-index: 100;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.4),
+        0 0 40px rgba(100, 100, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.control-panel::-webkit-scrollbar {
+    width: 6px;
+}
+
+.control-panel::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+}
+
+.control-panel::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+.control-panel h1 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #60a5fa, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 24px;
+    letter-spacing: -0.5px;
+}
+
+.control-panel h2 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 8px;
+}
+
+.input-group input[type="range"] {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+}
+
+.input-group input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: linear-gradient(135deg, #60a5fa, #a78bfa);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(96, 165, 250, 0.4);
+    transition: transform 0.2s ease;
+}
+
+.input-group input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+}
+
+.input-group input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: linear-gradient(135deg, #60a5fa, #a78bfa);
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 10px rgba(96, 165, 250, 0.4);
+}
+
+.value-display {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #60a5fa;
+    margin-top: 6px;
+}
+
+.divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    margin: 20px 0;
+}
+
+.measurements {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.measurement-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.measurement-item:last-child {
+    border-bottom: none;
+}
+
+.measurement-item .label {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.measurement-item .value {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #34d399;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+}
+
+.circle-list {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 12px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.circle-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 8px;
+    font-size: 0.8rem;
+    border-radius: 6px;
+    transition: background 0.2s ease;
+}
+
+.circle-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.circle-item .circle-label {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.circle-item .circle-value {
+    font-weight: 600;
+    color: #f59e0b;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+}
+
+.hint {
+    margin-top: 20px;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.4);
+    text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .control-panel {
+        width: calc(100% - 40px);
+        top: auto;
+        bottom: 20px;
+        max-height: 50vh;
+    }
+}
